@@ -39,7 +39,7 @@ cd ./opencv_calibration
 
 在进行相机-车体外参标定时，将车停放在标定布中心空白区域，车的左后轮停于十字交点处，左前轮和右后轮分别位于十字竖线和横线上。根据所选用的AprilTag码以及标定布尺寸，录入AprilTag配置文件`./src/apriltag_ros/apriltag_ros/config/tags.yaml `。
 
-<img src="data/内外参标定报告.assets/calib_pattern_cap4.jpg" alt="calib_pattern_cap4" style="zoom:30%;" />
+<img src="data/calib_pattern_cap4.jpg" alt="calib_pattern_cap4" style="zoom:30%;" />
 
 当车体位于标定布上正确位置后，便可以进行外参标定图像的采集。将采集好的标定图像放置于工程数据目录(`./data`)下，四个相机对应的目录组织方式与内参标定中相同。接着，生成文件`img.txt`，列出所有的标定图像文件名。
 
