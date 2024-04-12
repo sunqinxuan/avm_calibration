@@ -1,0 +1,31 @@
+<launch>
+  <arg name="launch_prefix" default="" /> <!-- set to value="gdbserver localhost:10000" for remote debugging -->
+  <arg name="node_namespace" default="apriltag_ros_continuous_node" />
+
+  <arg name="camera_name_right" default="/cv_camera_right" />
+  <arg name="camera_name_front" default="/cv_camera_front" />
+  <arg name="camera_name_left" default="/cv_camera_left" />
+  <arg name="camera_name_rear" default="/cv_camera_rear" />
+
+  <arg name="image_topic" default="image_raw" />
+
+  <!-- Set parameters -->
+  <rosparam command="load" file="$(find apriltag_ros)/config/settings.yaml" ns="$(arg node_namespace)" />
+  <rosparam command="load" file="$(find apriltag_ros)/config/tags.yaml" ns="$(arg node_namespace)" />
+  
+  <node pkg="apriltag_ros" type="apriltag_ros_continuous_node" name="$(arg node_namespace)" clear_params="true" output="screen" launch-prefix="$(arg launch_prefix)" >
+
+    <!-- Remap topics from those used in code to those on the ROS network -->
+    <remap from="image_rect_right" to="$(arg camera_name_right)/$(arg image_topic)" />
+    <remap from="image_rect_front" to="$(arg camera_name_front)/$(arg image_topic)" />
+    <remap from="image_rect_left"  to="$(arg camera_name_left)/$(arg image_topic)" />
+    <remap from="image_rect_rear"  to="$(arg camera_name_rear)/$(arg image_topic)" />
+
+    <remap from="camera_info_right" to="$(arg camera_name_right)/camera_info" />
+    <remap from="camera_info_front" to="$(arg camera_name_front)/camera_info" />
+    <remap from="camera_info_left"  to="$(arg camera_name_left)/camera_info" />
+    <remap from="camera_info_rear"  to="$(arg camera_name_rear)/camera_info" />
+
+    <param name="publish_tag_detections_image" type="bool" value="true" />      <!-- default: false -->
+  </node>
+</launch>

@@ -1,0 +1,92 @@
+# # Definitions of tags to detect
+#
+# ## General remarks
+#
+# - All length in meters
+# - Ellipsis (...) signifies that the previous element can be repeated multiple times.
+#
+# ## Standalone tag definitions
+# ### Remarks
+#
+# - name is optional
+#
+# ### Syntax
+#
+# standalone_tags:
+#   [
+#     {id: ID, size: SIZE, name: NAME},
+#     ...
+#   ]
+standalone_tags:
+  [
+   #{id: 7, size: 0.04},
+   #{id: 8, size: 0.04},
+   #{id: 9, size: 0.04},
+   #{id: 6, size: 0.04},
+  ]
+# ## Tag bundle definitions
+# ### Remarks
+#
+# - name is optional
+# - x, y, z have default values of 0 thus they are optional
+# - qw has default value of 1 and qx, qy, qz have default values of 0 thus they are optional
+#
+# ### Syntax
+#
+# tag_bundles:
+#   [
+#     {
+#       name: 'CUSTOM_BUNDLE_NAME',
+#       layout:
+#         [
+#           {id: ID, size: SIZE, x: X_POS, y: Y_POS, z: Z_POS, qw: QUAT_W_VAL, qx: QUAT_X_VAL, qy: QUAT_Y_VAL, qz: QUAT_Z_VAL},
+#           ...
+#         ]
+#     },
+#     ...
+#   ]
+tag_bundles:
+  [
+    {
+      name: 'my_bundle',
+      layout:
+        [
+          {id: 00, size: 0.12, x: 0.0000, y: 0.0000, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 01, size: 0.12, x: 0.1560, y: 0.0000, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 02, size: 0.12, x: 0.3120, y: 0.0000, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 03, size: 0.12, x: 0.4680, y: 0.0000, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 04, size: 0.12, x: 0.6240, y: 0.0000, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 05, size: 0.12, x: 0.7800, y: 0.0000, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 06, size: 0.12, x: 0.0000, y: 0.1560, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 07, size: 0.12, x: 0.1560, y: 0.1560, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 08, size: 0.12, x: 0.3120, y: 0.1560, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 09, size: 0.12, x: 0.4680, y: 0.1560, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 10, size: 0.12, x: 0.6240, y: 0.1560, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 11, size: 0.12, x: 0.7800, y: 0.1560, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 12, size: 0.12, x: 0.0000, y: 0.3120, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 13, size: 0.12, x: 0.1560, y: 0.3120, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 14, size: 0.12, x: 0.3120, y: 0.3120, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 15, size: 0.12, x: 0.4680, y: 0.3120, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 16, size: 0.12, x: 0.6240, y: 0.3120, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 17, size: 0.12, x: 0.7800, y: 0.3120, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 18, size: 0.12, x: 0.0000, y: 0.4680, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 19, size: 0.12, x: 0.1560, y: 0.4680, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 20, size: 0.12, x: 0.3120, y: 0.4680, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 21, size: 0.12, x: 0.4680, y: 0.4680, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 22, size: 0.12, x: 0.6240, y: 0.4680, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 23, size: 0.12, x: 0.7800, y: 0.4680, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 24, size: 0.12, x: 0.0000, y: 0.6240, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 25, size: 0.12, x: 0.1560, y: 0.6240, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 26, size: 0.12, x: 0.3120, y: 0.6240, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 27, size: 0.12, x: 0.4680, y: 0.6240, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 28, size: 0.12, x: 0.6240, y: 0.6240, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 29, size: 0.12, x: 0.7800, y: 0.6240, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 30, size: 0.12, x: 0.0000, y: 0.7800, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 31, size: 0.12, x: 0.1560, y: 0.7800, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 32, size: 0.12, x: 0.3120, y: 0.7800, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 33, size: 0.12, x: 0.4680, y: 0.7800, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 34, size: 0.12, x: 0.6240, y: 0.7800, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0},
+          {id: 35, size: 0.12, x: 0.7800, y: 0.7800, z: 0.0, qw: 1.0, qx: 0.0, qy: 0.0, qz: 0.0}
+        ]
+    }
+  ]

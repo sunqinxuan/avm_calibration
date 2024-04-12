@@ -1,0 +1,446 @@
+*****************************************************************************
+cv_camera 
+
+ls /dev/video* # 查看相机设备
+rosparam set cv_camera/device_id 0  # set camera
+rosrun cv_camera cv_camera_node # open the camera
+
+# calibration
+# saved at ~/.ros/camera_info
+rosrun camera_calibration cameracalibrator.py --size 7x6 --square 0.028 image:=/cv_camera/image_raw camera:=/cv_camera
+
+
+rostopic list 
+
+/cv_camera/camera_info
+/cv_camera/image_raw
+/cv_camera/image_raw/compressed
+/cv_camera/image_raw/compressed/parameter_descriptions
+/cv_camera/image_raw/compressed/parameter_updates
+/cv_camera/image_raw/compressedDepth
+/cv_camera/image_raw/compressedDepth/parameter_descriptions
+/cv_camera/image_raw/compressedDepth/parameter_updates
+/rosout
+/rosout_agg
+
+
+****************************
+OpenCV fisheye calibration
+
+./opencv_calibration/run.sh
+
+**********************************
+image_to_msg
+
+# wd: /apriltag_ws/
+
+# yaml file:
+/apriltag_ws/data/img/calib_right.yaml
+/apriltag_ws/data/img/calib_front.yaml
+/apriltag_ws/data/img/calib_left.yaml
+/apriltag_ws/data/img/calib_rear.yaml
+
+# read data from: 
+/apriltag_ws/data/img/img.txt
+/apriltag_ws/data/img/img_right
+/apriltag_ws/data/img/img_front
+/apriltag_ws/data/img/img_left
+/apriltag_ws/data/img/img_rear
+
+rosrun image_to_msg image_to_msg
+
+-------------
+rostopic list 
+-------------
+/cv_camera_front/camera_info
+/cv_camera_front/image_raw
+/cv_camera_front/image_raw/compressed
+/cv_camera_front/image_raw/compressed/parameter_descriptions
+/cv_camera_front/image_raw/compressed/parameter_updates
+/cv_camera_front/image_raw/compressedDepth
+/cv_camera_front/image_raw/compressedDepth/parameter_descriptions
+/cv_camera_front/image_raw/compressedDepth/parameter_updates
+/cv_camera_left/camera_info
+/cv_camera_left/image_raw
+/cv_camera_left/image_raw/compressed
+/cv_camera_left/image_raw/compressed/parameter_descriptions
+/cv_camera_left/image_raw/compressed/parameter_updates
+/cv_camera_left/image_raw/compressedDepth
+/cv_camera_left/image_raw/compressedDepth/parameter_descriptions
+/cv_camera_left/image_raw/compressedDepth/parameter_updates
+/cv_camera_rear/camera_info
+/cv_camera_rear/image_raw
+/cv_camera_rear/image_raw/compressed
+/cv_camera_rear/image_raw/compressed/parameter_descriptions
+/cv_camera_rear/image_raw/compressed/parameter_updates
+/cv_camera_rear/image_raw/compressedDepth
+/cv_camera_rear/image_raw/compressedDepth/parameter_descriptions
+/cv_camera_rear/image_raw/compressedDepth/parameter_updates
+/cv_camera_right/camera_info
+/cv_camera_right/image_raw
+/cv_camera_right/image_raw/compressed
+/cv_camera_right/image_raw/compressed/parameter_descriptions
+/cv_camera_right/image_raw/compressed/parameter_updates
+/cv_camera_right/image_raw/compressedDepth
+/cv_camera_right/image_raw/compressedDepth/parameter_descriptions
+/cv_camera_right/image_raw/compressedDepth/parameter_updates
+/rosout
+/rosout_agg
+
+*****************************************************************************
+AprilTag_ros [https://github.com/RIVeR-Lab/apriltags_ros]
+
+continuous_detection
+
+modified files:
+/apriltag_ws/src/apriltag_ros/apriltag_ros/src/common_functions.cpp
+/apriltag_ws/src/apriltag_ros/apriltag_ros/src/continuous_detector.cpp
+/apriltag_ws/src/apriltag_ros/apriltag_ros/include/common_functions.h
+/apriltag_ws/src/apriltag_ros/apriltag_ros/include/continuous_detector.h
+
+subscribing topics:
+[continuous_detection.launch]
+/cv_camera_right
+/cv_camera_front
+/cv_camera_left
+/cv_camera_rear
+
+common_functions.cpp
+# publishing /tf 
+
+/camera_rear
+bundle_80
+bundle_96
+bundle_112
+bundle_all
+
+/camera_right
+bundle_32
+bundle_48
+bundle_64
+bundle_80
+bundle_all
+
+/camera_front
+bundle_0
+bundle_16
+bundle_32
+bundle_all
+
+/camera_left
+bundle_0
+bundle_112
+bundle_128
+bundle_144
+bundle_all
+
+# setting image topic
+# /cv_camera
+# /cv_camera_undistort : need to start "rosrun undistort undistort"
+/apriltag_ws/src/apriltag_ros/apriltag_ros/launch/continuous_detection.launch
+
+# change the intrinsic paramters 
+/apriltag_ws/src/apriltag_ros/apriltag_ros/src/common_functions.cpp # line 505
+
+# setting tag_family
+/apriltag_ws/src/apriltag_ros/apriltag_ros/config/settings.yaml 
+
+# setting tag_id and poses
+/apriltag_ws/src/apriltag_ros/apriltag_ros/config/tags.yaml 
+
+roslaunch apriltag_ros continuous_detection.launch 
+
+-----------------------------
+rostopic echo /tag_detections
+---
+header: 
+  seq: 571
+  stamp: 
+    secs: 1630490163
+    nsecs: 921470474
+  frame_id: "camera"
+detections: 
+  - 
+    id: [7, 6]
+    size: [0.04, 0.04]
+    pose: 
+      header: 
+        seq: 47597
+        stamp: 
+          secs: 1630490163
+          nsecs: 921470474
+        frame_id: "camera"
+      pose: 
+        pose: 
+          position: 
+            x: -0.0870850401089
+            y: 0.126102411832
+            z: 0.51196297336
+          orientation: 
+            x: 0.99216559374
+            y: 0.0475379868291
+            z: -0.114983872641
+            w: 0.0112375904209
+        covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+*****************************************************************************
+localize 
+
+rosrun localize localize
+
+# publish topics:
+/pose_wheel_camera_right
+/pose_wheel_camera_front
+/pose_wheel_camera_left
+/pose_wheel_camera_rear
+
+-------------
+rostopic list 
+-------------
+/clicked_point
+/cv_camera_front/camera_info
+/cv_camera_front/image_raw
+/cv_camera_front/image_raw/compressed
+/cv_camera_front/image_raw/compressed/parameter_descriptions
+/cv_camera_front/image_raw/compressed/parameter_updates
+/cv_camera_front/image_raw/compressedDepth
+/cv_camera_front/image_raw/compressedDepth/parameter_descriptions
+/cv_camera_front/image_raw/compressedDepth/parameter_updates
+/cv_camera_left/camera_info
+/cv_camera_left/image_raw
+/cv_camera_left/image_raw/compressed
+/cv_camera_left/image_raw/compressed/parameter_descriptions
+/cv_camera_left/image_raw/compressed/parameter_updates
+/cv_camera_left/image_raw/compressedDepth
+/cv_camera_left/image_raw/compressedDepth/parameter_descriptions
+/cv_camera_left/image_raw/compressedDepth/parameter_updates
+/cv_camera_rear/camera_info
+/cv_camera_rear/image_raw
+/cv_camera_rear/image_raw/compressed
+/cv_camera_rear/image_raw/compressed/parameter_descriptions
+/cv_camera_rear/image_raw/compressed/parameter_updates
+/cv_camera_rear/image_raw/compressedDepth
+/cv_camera_rear/image_raw/compressedDepth/parameter_descriptions
+/cv_camera_rear/image_raw/compressedDepth/parameter_updates
+/cv_camera_right/camera_info
+/cv_camera_right/image_raw
+/cv_camera_right/image_raw/compressed
+/cv_camera_right/image_raw/compressed/parameter_descriptions
+/cv_camera_right/image_raw/compressed/parameter_updates
+/cv_camera_right/image_raw/compressedDepth
+/cv_camera_right/image_raw/compressedDepth/parameter_descriptions
+/cv_camera_right/image_raw/compressedDepth/parameter_updates
+/initialpose
+/move_base_simple/goal
+/pose_wheel_camera_front
+/pose_wheel_camera_left
+/pose_wheel_camera_rear
+/pose_wheel_camera_right
+/rosout
+/rosout_agg
+/tag_detections_front
+/tag_detections_image_front
+/tag_detections_image_front/compressed
+/tag_detections_image_front/compressed/parameter_descriptions
+/tag_detections_image_front/compressed/parameter_updates
+/tag_detections_image_front/compressedDepth
+/tag_detections_image_front/compressedDepth/parameter_descriptions
+/tag_detections_image_front/compressedDepth/parameter_updates
+/tag_detections_image_left
+/tag_detections_image_left/compressed
+/tag_detections_image_left/compressed/parameter_descriptions
+/tag_detections_image_left/compressed/parameter_updates
+/tag_detections_image_left/compressedDepth
+/tag_detections_image_left/compressedDepth/parameter_descriptions
+/tag_detections_image_left/compressedDepth/parameter_updates
+/tag_detections_image_rear
+/tag_detections_image_rear/compressed
+/tag_detections_image_rear/compressed/parameter_descriptions
+/tag_detections_image_rear/compressed/parameter_updates
+/tag_detections_image_rear/compressedDepth
+/tag_detections_image_rear/compressedDepth/parameter_descriptions
+/tag_detections_image_rear/compressedDepth/parameter_updates
+/tag_detections_image_right
+/tag_detections_image_right/compressed
+/tag_detections_image_right/compressed/parameter_descriptions
+/tag_detections_image_right/compressed/parameter_updates
+/tag_detections_image_right/compressedDepth
+/tag_detections_image_right/compressedDepth/parameter_descriptions
+/tag_detections_image_right/compressedDepth/parameter_updates
+/tag_detections_left
+/tag_detections_rear
+/tag_detections_right
+/tf
+/tf_static
+
+*****************************************
+camera_right:
+bundle_32	0.0178848	0.253137	0.00328438
+bundle_48	0.00770098	0.26698	0.00210986
+bundle_64	0.00482896	0.439827	0.00175599
+bundle_80	0.0203799	0.330315	0.00568472
+
+rmse:	0.0127893	0.295943	0.00256699
+
+*****************************************
+camera_front:
+bundle_0	0.00731634	0.163114	0.00150437
+bundle_16	0.00243816	0.246075	0.000512275
+bundle_32	0.0132755	0.288698	0.00243793
+
+rmse:	0.00767648	0.206461	0.00111365
+
+*****************************************
+camera_left:
+bundle_0	0.0584252	0.609083	0.0120133
+bundle_112	0.0318171	0.407055	0.0121545
+bundle_128	0.00741969	0.15762	0.00593575
+bundle_144	0.00359662	0.18774	0.00132912
+
+rmse:	0.0299794	0.345475	0.00628652
+
+*****************************************
+camera_rear:
+bundle_112	0.0688331	0.983433	0.026295
+bundle_80	0.0580022	0.690599	0.016179
+bundle_96	0.010303	1.19738	0.00425884
+
+rmse:	0.0453001	0.8482	0.0116832
+
+
+
+
+*****************************************************************************
+AprilTag_ros 
+
+single_image_detection
+[http://wiki.ros.org/apriltag_ros/Tutorials/Detection%20in%20a%20Single%20Image]
+
+/single_image_test
+
+# 设置image topic
+/apriltag_ws/src/apriltag_ros/apriltag_ros/launch/single_image_client.launch
+
+# 设置tag_family
+/apriltag_ws/src/apriltag_ros/apriltag_ros/config/settings.yaml 
+
+# 设置tag_id和poses
+/apriltag_ws/src/apriltag_ros/apriltag_ros/config/tags.yaml 
+
+# run server 
+roslaunch apriltag_ros single_image_server.launch 
+
+# run client
+roslaunch apriltag_ros single_image_client.launch image_save_path:=/home/sun/AVP-SLAM/OCamCalib/undistortFunctions/build/output.jpg image_load_path:=/home/sun/AVP-SLAM/OCamCalib/undistortFunctions/build/test_fisheye.jpg
+
+
+******************************
+image_undistortion
+
+rosrun undistort undistort
+
+# subscribe
+/cv_camera/image_raw
+
+# publish
+/image_undistort
+/camera_info 
+
+
+***********************************************
+------------------------------
+rostopic info /tag_detections
+Type: apriltag_ros/AprilTagDetectionArray
+Publishers: 
+ * /apriltag_ros_continuous_node (http://pc:42249/)
+-------------------------------------------
+rosmsg show apriltag_ros/AprilTagDetection
+int32[] id
+float64[] size
+geometry_msgs/PoseWithCovarianceStamped pose
+  std_msgs/Header header
+    uint32 seq
+    time stamp
+    string frame_id
+  geometry_msgs/PoseWithCovariance pose
+    geometry_msgs/Pose pose
+      geometry_msgs/Point position
+        float64 x
+        float64 y
+        float64 z
+      geometry_msgs/Quaternion orientation
+        float64 x
+        float64 y
+        float64 z
+        float64 w
+    float64[36] covariance
+------------------------------------------------
+rosmsg show apriltag_ros/AprilTagDetectionArray
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+apriltag_ros/AprilTagDetection[] detections
+  int32[] id
+  float64[] size
+  geometry_msgs/PoseWithCovarianceStamped pose
+    std_msgs/Header header
+      uint32 seq
+      time stamp
+      string frame_id
+    geometry_msgs/PoseWithCovariance pose
+      geometry_msgs/Pose pose
+        geometry_msgs/Point position
+          float64 x
+          float64 y
+          float64 z
+        geometry_msgs/Quaternion orientation
+          float64 x
+          float64 y
+          float64 z
+          float64 w
+      float64[36] covariance
+
+*************************************
+GitLab 
+
+# Command line instructions
+
+# You can also upload existing files from your computer using the instructions below.
+# Git global setup
+
+git config --global user.name "sunqinxuan"
+git config --global user.email "sunqinxuan@china-icv.cn"
+
+# Create a new repository
+
+git clone git@192.168.10.192:sunqinxuan/camera_vehicle_calibration.git
+cd camera_vehicle_calibration
+touch README.md
+git add README.md
+git commit -m "add README"
+git push -u origin master
+
+# Push an existing folder
+
+cd existing_folder
+git init
+git remote add origin git@192.168.10.192:sunqinxuan/camera_vehicle_calibration.git
+git add .
+git commit -m "Initial commit"
+git push -u origin master
+
+# Push an existing Git repository
+
+cd existing_repo
+git remote rename origin old-origin
+git remote add origin git@192.168.10.192:sunqinxuan/camera_vehicle_calibration.git
+git push -u origin --all
+git push -u origin --tags
+
+
+ 
+ 
+ 
+ 
+

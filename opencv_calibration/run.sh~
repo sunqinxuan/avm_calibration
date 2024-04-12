@@ -1,0 +1,7 @@
+#!/bin/sh
+
+#./calibration img_right.txt calib_right.yaml
+#./calibration img_front.txt calib_front.yaml
+#./calibration img_left.txt calib_left.yaml
+./calibration img_rear.txt calib_rear.yaml
+
